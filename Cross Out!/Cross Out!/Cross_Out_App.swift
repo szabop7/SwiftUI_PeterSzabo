@@ -11,7 +11,7 @@ import SwiftUI
 struct Cross_Out_App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StartingPageView()
         }
     }
 }
