@@ -17,6 +17,9 @@ class CrossOutViewModel: ObservableObject{
     var rows: Array<Row> {
         return model.rows
     }
+    var gameFinished: Bool {
+        return model.gameFinished
+    }
     
     func createGame(_ rows:Int){
         model = CrossOutGameModel(numberOfRows: rows)

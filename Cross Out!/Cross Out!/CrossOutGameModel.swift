@@ -59,6 +59,7 @@ struct CrossOutGameModel{
             }
         }
         evaluatePossibleMoves()
+        checkIfGameIsFinished()
     }
     
     mutating func evaluatePossibleMoves()
@@ -82,6 +83,18 @@ struct CrossOutGameModel{
                 }
             }
         }
+        
+    }
+    mutating func checkIfGameIsFinished(){
+        for row in rows {
+            for line in row.lines
+            {
+                if line.isCrossed == false {
+                    return
+                }
+            }
+        }
+        gameFinished = true
         
     }
     

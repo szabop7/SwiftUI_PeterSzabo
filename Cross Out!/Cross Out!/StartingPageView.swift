@@ -25,9 +25,8 @@ struct StartingPageView: View {
                     Picker(selection: $isOn, label: Text("GameMode:")) {
                         Text("PvP")
                         Text("PvC (not ready yet)")
+                            .disabled(true)
                     }
-                
-                
                 }
                 HStack{
                     Text("Field Size:")
@@ -55,9 +54,6 @@ struct StartingPageView: View {
                         .foregroundColor(.white)
                         .padding(7)
                 }
-                 
-                Spacer()
-                Spacer()
                 HStack{
                     Spacer()
                     Toggle("Dark Mode", isOn: $isOnDark)

@@ -9,26 +9,55 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var gameViewModel: CrossOutViewModel
+    @State var gameFinished = false
     var body: some View {
-
+        
         var x = gameViewModel.rows
         ForEach(gameViewModel.rows) { row in
             rowView(for: row)
         }
+        Spacer()
+        Text(endText())
+            .font(.subheadline)
+            .fontWeight(.bold)
+        Spacer()
+        NavigationLink(destination: StartingPageView(gameViewModel: gameViewModel),isActive: $gameFinished){
         Button(action: {
+            
+
             gameViewModel.passTurn()
+            gameFinished=gameViewModel.gameFinished
         }
         ){
-            Text("Pass Turn!")
+            Text(buttonText())
                 .fontWeight(.bold)
                 .font(.subheadline)
                 .padding()
                 .background(Color.blue)
                 .cornerRadius(10)
                 .foregroundColor(.white)
-                .padding(.top)
+                
+        }
+        .disabled(gameViewModel.gameFinished)
         }
         Spacer()
+    }
+    
+    func buttonText() -> String{
+        if gameViewModel.gameFinished == false{
+            
+            return "Pass Turn!"
+        }
+        else{
+            return "Return to Menu"
+        }
+            
+    }
+    func endText() -> String{
+        if gameViewModel.gameFinished == true{
+            return "Game is over, Congrat to the winner!"
+        }
+        return ""
     }
         
     
