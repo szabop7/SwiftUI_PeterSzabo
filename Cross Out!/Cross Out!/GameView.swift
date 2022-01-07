@@ -41,7 +41,9 @@ struct GameView: View {
         .disabled(gameViewModel.gameFinished)
         }
         Spacer()
+            .navigationTitle("Let's Play")
     }
+        
     
     func buttonText() -> String{
         if gameViewModel.gameFinished == false{

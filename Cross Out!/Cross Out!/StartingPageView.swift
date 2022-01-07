@@ -9,14 +9,14 @@ import SwiftUI
 
 struct StartingPageView: View {
     @State private var isOn = 4
-    @State private var isOnDark = false
+    @AppStorage("isOnDark") private var isOnDark = false
     @State private var action: Int? = 0
     @ObservedObject var gameViewModel: CrossOutViewModel
     var body: some View {
         NavigationView {
             VStack{
                 Text("Cross Out!")
-                    .font(.custom("Marker Felt", size: 35))
+                    .font(.custom("Marker Felt", size: 30))
                     .fontWeight(.bold)
                     .padding()
                 Spacer()
@@ -54,15 +54,21 @@ struct StartingPageView: View {
                         .foregroundColor(.white)
                         .padding(7)
                 }
-                HStack{
-                    Spacer()
-                    Toggle("Dark Mode", isOn: $isOnDark)
-                        .toggleStyle(CheckToggleStyle())
+                VStack{
+                    Picker("Mode", selection: $isOnDark){
+                        Text("Light")
+                            .tag(false)
+                        Text("Dark")
+                            .tag(true)
+                    }.pickerStyle(SegmentedPickerStyle())
                         .padding()
+                        
+                    Spacer()
                 }
-            
             }
+            
         }
+        
     }
 }
 
@@ -74,8 +80,7 @@ struct CheckToggleStyle: ToggleStyle {
             Label {
                 configuration.label
             } icon: {
-                Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "circle")
-                    .accessibility(label: Text(configuration.isOn ? "Checked" : "Unchecked"))
+                Image(systemName: configuration.isOn ? "circle.fill" : "circle")
                     .imageScale(.large)
             }
         }
