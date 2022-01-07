@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct Cross_Out_App: App {
+    private let game = CrossOutViewModel()
     var body: some Scene {
         WindowGroup {
-            StartingPageView()
+            StartingPageView(gameViewModel: game)
         }
     }
 }

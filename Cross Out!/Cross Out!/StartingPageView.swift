@@ -8,56 +8,64 @@
 import SwiftUI
 
 struct StartingPageView: View {
-    @State private var isOn = false
+    @State private var isOn = 4
+    @State private var isOnDark = false
+    @State private var action: Int? = 0
+    @ObservedObject var gameViewModel: CrossOutViewModel
     var body: some View {
-        VStack{
-            Text("Cross Out!")
-                .font(.custom("Marker Felt", size: 35))
-                .fontWeight(.bold)
-                .padding()
-            Spacer()
-            HStack{
-                Text("Game Mode:")
-                Picker(selection: $isOn, label: Text("GameMode:")) {
-                    Text("PvP")
-                    Text("PvC")
-                }
-            
-            
-            }
-            HStack{
-                Text("Field Size:")
-                Picker(selection: $isOn, label: Text("GameMode:")) {
-                    Text("4 rows")
-                    Text("5 rows")
-                    Text("6 rows")
-                    Text("7 rows")
-                }
-            }
-            Spacer()
-            Button(action: {
-                
-            }){
-                
-                Text("Start Game")
+        NavigationView {
+            VStack{
+                Text("Cross Out!")
+                    .font(.custom("Marker Felt", size: 35))
                     .fontWeight(.bold)
-                    .font(.subheadline)
                     .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .foregroundColor(.white)
-                    .padding(7)
-                    
-            }
-            Spacer()
-            Spacer()
-            HStack{
                 Spacer()
-                Toggle("Dark Mode", isOn: $isOn)
-                    .toggleStyle(CheckToggleStyle())
-                    .padding()
+                HStack{
+                    Text("Game Mode:")
+                    Picker(selection: $isOn, label: Text("GameMode:")) {
+                        Text("PvP")
+                        Text("PvC (not ready yet)")
+                    }
+                
+                
+                }
+                HStack{
+                    Text("Field Size:")
+                    Picker(selection: $isOn, label: Text("GameMode:")) {
+                        Text("4 rows").tag(4)
+                        Text("5 rows").tag(5)
+                        Text("6 rows").tag(6)
+                        Text("7 rows").tag(7)
+                    }
+                }
+                Spacer()
+                NavigationLink(destination: GameView(gameViewModel: gameViewModel), tag: 1, selection: $action){}
+                Button(action: {
+                    gameViewModel.createGame(isOn)
+                    self.action = 1
+                    
+                }
+                ){
+                    Text("Start Game")
+                        .fontWeight(.bold)
+                        .font(.subheadline)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                        .padding(7)
+                }
+                 
+                Spacer()
+                Spacer()
+                HStack{
+                    Spacer()
+                    Toggle("Dark Mode", isOn: $isOnDark)
+                        .toggleStyle(CheckToggleStyle())
+                        .padding()
+                }
+            
             }
-        
         }
     }
 }
@@ -71,7 +79,6 @@ struct CheckToggleStyle: ToggleStyle {
                 configuration.label
             } icon: {
                 Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(configuration.isOn ? .accentColor : .secondary)
                     .accessibility(label: Text(configuration.isOn ? "Checked" : "Unchecked"))
                     .imageScale(.large)
             }
@@ -82,8 +89,4 @@ struct CheckToggleStyle: ToggleStyle {
 
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        StartingPageView()
-    }
-}
+
