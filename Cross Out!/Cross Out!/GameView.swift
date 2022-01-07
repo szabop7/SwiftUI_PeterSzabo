@@ -16,7 +16,7 @@ struct GameView: View {
             rowView(for: row)
         }
         Button(action: {
-
+            gameViewModel.passTurn()
         }
         ){
             Text("Pass Turn!")
@@ -29,47 +29,37 @@ struct GameView: View {
                 .padding(.top)
         }
         Spacer()
-
     }
         
     
     @ViewBuilder
     private func rowView (for row: CrossOutViewModel.Row) -> some View {
         let r = row
-
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 20))]){
             Spacer()
             Spacer()
             ForEach(r.lines){line in
-                if line.id==0 || line.id==1 || line.id==3 || line.id==6 || line.id==10 || line.id==15 || line.id==21{
-                    LineView(line: line, id: line.id, isAvailable: true)
-                }
-                else {
-                    LineView(line: line, id: line.id, isAvailable: false)
-                }
+                LineView(gameViewModel: gameViewModel, line: line)
             }
-            
         }
     }
 }
 
 struct LineView : View{
+    @ObservedObject var gameViewModel: CrossOutViewModel
     let line: CrossOutViewModel.Line
-    let id:Int
-    let isAvailable:Bool
-    @State var isChecked:Bool = false
-    
-    func toggle(){isChecked = !isChecked}
+    func toggle(){
+        gameViewModel.cross(line)
+    }
     
     var body: some View{
         Button(action: toggle){
-            Image(systemName: isChecked ? "square.fill": "square")
+            Image(systemName: line.isCrossed ? "square.fill": "square")
                 .resizable()
                 .scaledToFit()
                 .aspectRatio(contentMode: .fit)
-                
         }
-        .disabled(isAvailable == false)
+        .disabled(line.isAvailable == false)
         
     }
 }
