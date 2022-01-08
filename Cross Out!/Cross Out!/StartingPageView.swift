@@ -11,7 +11,9 @@ struct StartingPageView: View {
     @State private var isOn = 4
     @AppStorage("isOnDark") private var isOnDark = false
     @State private var action: Int? = 0
-    @ObservedObject var gameViewModel: CrossOutViewModel
+    @StateObject var gameViewModel: CrossOutViewModel
+    @State var selectedCountry: String?
+    @State var countries = [Country]()
     var body: some View {
         NavigationView {
             VStack{
@@ -19,24 +21,71 @@ struct StartingPageView: View {
                     .font(.custom("Marker Felt", size: 30))
                     .fontWeight(.bold)
                     .padding()
-                Spacer()
-                HStack{
-                    Text("Game Mode:")
-                    Picker(selection: $isOn, label: Text("GameMode:")) {
-                        Text("PvP")
-                        Text("PvC (not ready yet)")
-                            .disabled(true)
-                    }
+                    
+               
+                
+                VStack{
+                    Picker("Mode", selection: $isOnDark){
+                        Text("Light")
+                            .tag(false)
+                        Text("Dark")
+                            .tag(true)
+                    }.pickerStyle(SegmentedPickerStyle())
+                        .padding()
+                        
+                    
                 }
                 HStack{
                     Text("Field Size:")
-                    Picker(selection: $isOn, label: Text("GameMode:")) {
+                    Picker(selection: $isOn, label: Text("Field Size:")) {
                         Text("4 rows").tag(4)
                         Text("5 rows").tag(5)
                         Text("6 rows").tag(6)
                         Text("7 rows").tag(7)
                     }
                 }
+                
+                HStack{
+                    Spacer()
+                    Text("Country P1:")
+                    Picker("Country", selection: $selectedCountry) {
+                                
+                            Text("Option 1")
+                            Text("Option 2")
+                                
+                            }.pickerStyle(.menu)
+                                .onChange(of: selectedCountry) { selected in
+                                    if let cntry = selected {
+                                        print("--> store country id:")
+                                    }
+                                }
+                    Spacer()
+                    Text("Country P2:")
+                    
+                        Picker("Country", selection: $selectedCountry) {
+                            
+                            Group{
+                                
+                                
+                                    
+                                
+                                Text("Option 1")
+                                Text("Option 2")
+
+                            }
+                        }.onChange(of: selectedCountry) { selected in
+                            if let cntry = selected {
+                                print("--> store country id:")
+                            }
+                        }.pickerStyle(.menu)
+                            .onAppear{
+                                //gameViewModel.fetch(completion: <#([Country]) -> ()#>)
+                            }
+                    
+                    Spacer()
+                }
+                .scaledToFit()
+                .aspectRatio(contentMode: .fit)
                 Spacer()
                 NavigationLink(destination: GameView(gameViewModel: gameViewModel), tag: 1, selection: $action){}
                 Button(action: {
@@ -54,40 +103,10 @@ struct StartingPageView: View {
                         .foregroundColor(.white)
                         .padding(7)
                 }
-                VStack{
-                    Picker("Mode", selection: $isOnDark){
-                        Text("Light")
-                            .tag(false)
-                        Text("Dark")
-                            .tag(true)
-                    }.pickerStyle(SegmentedPickerStyle())
-                        .padding()
-                        
-                    Spacer()
-                }
             }
             
         }
         
     }
 }
-
-struct CheckToggleStyle: ToggleStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        Button {
-            configuration.isOn.toggle()
-        } label: {
-            Label {
-                configuration.label
-            } icon: {
-                Image(systemName: configuration.isOn ? "circle.fill" : "circle")
-                    .imageScale(.large)
-            }
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
-
-
-
 

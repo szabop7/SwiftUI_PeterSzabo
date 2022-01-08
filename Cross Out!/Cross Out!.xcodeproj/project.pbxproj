@@ -17,6 +17,7 @@
 		72B9834A271CCB5F00C2DF88 /* Cross_Out_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B98349271CCB5F00C2DF88 /* Cross_Out_Tests.swift */; };
 		72B98354271CCB5F00C2DF88 /* Cross_Out_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B98353271CCB5F00C2DF88 /* Cross_Out_UITests.swift */; };
 		72B98356271CCB5F00C2DF88 /* Cross_Out_UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B98355271CCB5F00C2DF88 /* Cross_Out_UITestsLaunchTests.swift */; };
+		72F29C9D2788CA8400B0F90F /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F29C9C2788CA8300B0F90F /* Countries.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		72B9834F271CCB5F00C2DF88 /* Cross Out!UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cross Out!UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B98353271CCB5F00C2DF88 /* Cross_Out_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cross_Out_UITests.swift; sourceTree = "<group>"; };
 		72B98355271CCB5F00C2DF88 /* Cross_Out_UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cross_Out_UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		72F29C9C2788CA8300B0F90F /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				728DC97F273820AF000DAB63 /* GameView.swift */,
 				728DC98127382894000DAB63 /* CrossOutGameModel.swift */,
 				728DC9832738400E000DAB63 /* CrossOutViewModel.swift */,
+				72F29C9C2788CA8300B0F90F /* Countries.swift */,
 			);
 			path = "Cross Out!";
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				728DC9842738400E000DAB63 /* CrossOutViewModel.swift in Sources */,
 				728DC98227382894000DAB63 /* CrossOutGameModel.swift in Sources */,
 				728DC980273820AF000DAB63 /* GameView.swift in Sources */,
+				72F29C9D2788CA8400B0F90F /* Countries.swift in Sources */,
 				72B98339271CCB5D00C2DF88 /* Cross_Out_App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

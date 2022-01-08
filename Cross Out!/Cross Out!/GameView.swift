@@ -12,7 +12,6 @@ struct GameView: View {
     @State var gameFinished = false
     var body: some View {
         
-        var x = gameViewModel.rows
         ForEach(gameViewModel.rows) { row in
             rowView(for: row)
         }

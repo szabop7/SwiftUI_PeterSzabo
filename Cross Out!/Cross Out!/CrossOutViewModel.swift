@@ -14,8 +14,12 @@ class CrossOutViewModel: ObservableObject{
     @Published
     private var model = CrossOutGameModel(numberOfRows: 4)
     
+    @Published var countries2: Country = Country(data: [:])
     var rows: Array<Row> {
         return model.rows
+    }
+    var countries: Array<String> {
+        return model.countries
     }
     var gameFinished: Bool {
         return model.gameFinished
@@ -30,5 +34,21 @@ class CrossOutViewModel: ObservableObject{
     }
     func passTurn(){
         model.passTurn()
+    }
+    
+    func fetch(completion:@escaping ([Country]) -> ()) {
+        guard let url = URL(string: "https://api.first.org/data/v1/countries") else {
+            print("Invalid url...")
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            let countries = try! JSONDecoder().decode(Country.self, from: data!)
+            print(countries)
+           
+            DispatchQueue.main.async {
+                self.model.saveCountries(countries)
+                completion([self.countries2])
+                        }
+                    }.resume()
     }
 }

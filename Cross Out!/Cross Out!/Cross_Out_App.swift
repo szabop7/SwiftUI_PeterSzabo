@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct Cross_Out_App: App {
     @AppStorage("isOnDark") private var isOnDark = false
+    @State var countries = [Country]()
     private let game = CrossOutViewModel()
     var body: some Scene {
         WindowGroup {
@@ -17,6 +18,9 @@ struct Cross_Out_App: App {
             NavigationView{
                 StartingPageView(gameViewModel: game)
                     .preferredColorScheme(isOnDark ? .dark : .light)
+                    
+                    
+                    
             }
         }
     }
