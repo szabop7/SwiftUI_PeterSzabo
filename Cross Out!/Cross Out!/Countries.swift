@@ -15,7 +15,7 @@ struct Country: Codable, Identifiable, Hashable {
 
 class Api : ObservableObject{
     
-    @Published var country = [Country]()
+    @Published var countries = [Country]()
     @Published
     private var model = CrossOutGameModel(numberOfRows: 4)
     func loadData(completion:@escaping ([Country]) -> ()) {
@@ -25,13 +25,14 @@ class Api : ObservableObject{
         }
         URLSession.shared.dataTask(with: url) { data, response, error in
             let countries = try! JSONDecoder().decode(Country.self, from: data!)
-            print(countries)
+            //print(countries)
            
             DispatchQueue.main.async {
-                self.model.saveCountries(countries)
                 completion([countries])
+                //print([countries])
                         }
                     }.resume()
+        
             
         
     }

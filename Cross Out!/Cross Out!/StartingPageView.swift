@@ -50,9 +50,21 @@ struct StartingPageView: View {
                     Text("Country P1:")
                     Picker("Country", selection: $selectedCountry) {
                                 
-                            Text("Option 1")
-                            Text("Option 2")
+                        Group{
+                            ForEach(countries) { country in
+                                var keyArray = Array(country.data.keys)
+                                ForEach(keyArray, id: \.self) { c in
+                                    var dict = country.data[c]
+                                    Text(dict!["country"]!)
+                                }
+                            }
+                            Text("<choose>")
+                        }
                                 
+                            }.onChange(of: selectedCountry) { selected in
+                                if let cntry = selected {
+                                    print("--> store country id:")
+                                }
                             }.pickerStyle(.menu)
                                 .onChange(of: selectedCountry) { selected in
                                     if let cntry = selected {
@@ -65,12 +77,14 @@ struct StartingPageView: View {
                         Picker("Country", selection: $selectedCountry) {
                             
                             Group{
-                                
-                                
-                                    
-                                
-                                Text("Option 1")
-                                Text("Option 2")
+                                ForEach(countries) { country in
+                                    var keyArray = Array(country.data.keys)
+                                    ForEach(keyArray, id: \.self) { c in
+                                        var dict = country.data[c]
+                                        Text(dict!["country"]!)
+                                    }
+                                }
+                                Text("<choose>")
 
                             }
                         }.onChange(of: selectedCountry) { selected in
@@ -79,7 +93,9 @@ struct StartingPageView: View {
                             }
                         }.pickerStyle(.menu)
                             .onAppear{
-                                //gameViewModel.fetch(completion: <#([Country]) -> ()#>)
+                                Api().loadData { (countries) in
+                                        self.countries = countries
+                                }
                             }
                     
                     Spacer()

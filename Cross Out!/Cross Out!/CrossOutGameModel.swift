@@ -12,7 +12,6 @@ struct CrossOutGameModel{
     
     private(set) var rows: Array<Row>
     private(set) var gameFinished = false
-    private(set) var countries: Array<String>
     
     
     struct Line: Identifiable {
@@ -48,23 +47,10 @@ struct CrossOutGameModel{
                 }
             }
         }
-        countries = ["Loading..."]
 
     }
     
-    mutating func saveCountries(_ countries: Country){
-        var dict : [String:[String:String]] = countries.data
-        var keys = dict.keys
-        for key in keys {
-            var keys2 = dict[key]!.keys
-            for key2 in keys2 {
-                if key2 == "country"{
-                    var dict2 = dict[key]
-                    self.countries.append(dict2![key2]!)
-                }
-            }
-        }
-    }
+    
     
     mutating func cross(_ line: Line) {
         for row in rows {
